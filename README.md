@@ -109,21 +109,82 @@ Y simplemente podremos proseguir a poner en marcha nuestro sitio Wordpress.
 
 Parar el sistema es tan sencillo como utilizar el comando: 
 
-- docker compose down
-
-
-[Imagen pantallazo de la terminal ejecutando 'docker compose down' y eliminando contenedores]
+```bash
+docker compose down
+```
 
 Con ello se pararán y eliminarán los contenedores. No se eliminarán ni las imágenes ni los volúmenes (el sistema Wordpress mantiene la persistencia, al tener mapeados la información de la base de datos a un volumen).
+
+**Ejemplo de salida:**
+```
+[+] Running 3/3
+ ✔ Container ...wordpress-1  Removed
+ ✔ Container ...db-1         Removed
+ ✔ Network ...default        Removed
+```
 
 ### Paso 3: Re-lanzando el sistema
 
 
 Relanzar el sistema es tan sencillo como volver a lanzar el comando: 
 
-- docker compose up -d
-
-
-[Imagen pantallazo de la terminal ejecutando 'docker compose up -d' y creando contenedores]
+```bash
+docker compose up -d
+```
 
 Observamos que el sistema aprovecha las imágenes ya creadas para acelerar el proceso de puesta en marcha, simplemente creando y lanzando los contenedores.
+
+**Ejemplo de salida:**
+```
+[+] Running 2/2
+ ✔ Container ...db-1         Started
+ ✔ Container ...wordpress-1  Started
+```
+
+### Comandos útiles adicionales
+
+**Ver logs de los contenedores:**
+```bash
+docker compose logs
+```
+
+**Ver logs en tiempo real:**
+```bash
+docker compose logs -f
+```
+
+**Ver logs de un servicio específico:**
+```bash
+docker compose logs wordpress
+docker compose logs db
+```
+
+**Reiniciar servicios:**
+```bash
+docker compose restart
+```
+
+**Detener servicios sin eliminarlos:**
+```bash
+docker compose stop
+```
+
+**Iniciar servicios detenidos:**
+```bash
+docker compose start
+```
+
+### Información de configuración
+
+**Acceso a Wordpress:** http://localhost:8001
+
+**Credenciales de la base de datos:**
+- Host: db:3306
+- Database: wordpress
+- Usuario: wordpress
+- Contraseña: wordpress
+- Root password: somewordpress
+
+**Persistencia de datos:**
+- Los datos de la base de datos se almacenan en el volumen `db_data`
+- Esto asegura que la información persista incluso después de eliminar los contenedores
